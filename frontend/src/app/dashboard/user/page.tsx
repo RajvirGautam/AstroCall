@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, onSnapshot } from "firebase/firestor
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
 import { Session, Review } from "@/types";
-import Navbar from "@/components/Navbar";
+import GlassNavBar from "@/components/GlassNavBar";
 import { useRouter } from "next/navigation";
 import { Clock, Star, Video, Calendar } from "lucide-react";
 import { format } from "date-fns";
@@ -44,8 +44,8 @@ export default function UserDashboard() {
 
   return (
     <div className="min-h-screen relative">
-      <Navbar />
-      <div className="relative z-content max-w-5xl mx-auto px-4 py-10">
+      <GlassNavBar />
+      <div className="relative z-content max-w-5xl mx-auto px-4 pt-28 pb-10">
         {/* Header */}
         <div className="mb-8">
           <div className="font-display text-xs tracking-[0.3em] text-gold-500 uppercase mb-1">My Account</div>

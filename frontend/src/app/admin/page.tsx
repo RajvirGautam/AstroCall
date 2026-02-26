@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, orderBy, doc, updateDoc, setDoc, getDoc 
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
 import { UserProfile, Session, Astrologer } from "@/types";
-import Navbar from "@/components/Navbar";
+import GlassNavBar from "@/components/GlassNavBar";
 import { useRouter } from "next/navigation";
 import { Shield, Users, Video, Star, ChevronRight, UserCheck } from "lucide-react";
 import { format } from "date-fns";
@@ -64,8 +64,8 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen relative">
-      <Navbar />
-      <div className="relative z-content max-w-6xl mx-auto px-4 py-10">
+      <GlassNavBar />
+      <div className="relative z-content max-w-6xl mx-auto px-4 pt-28 pb-10">
         {/* Header */}
         <div className="mb-8 flex items-center gap-3">
           <Shield className="w-8 h-8 text-gold-400" />
@@ -111,11 +111,10 @@ export default function AdminPanel() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className={`text-xs font-display px-2 py-0.5 rounded-full border ${
-                      u.role === "admin" ? "text-gold-300 border-gold-700 bg-gold-900/20" :
+                    <span className={`text-xs font-display px-2 py-0.5 rounded-full border ${u.role === "admin" ? "text-gold-300 border-gold-700 bg-gold-900/20" :
                       u.role === "astrologer" ? "text-cosmic-300 border-cosmic-700 bg-cosmic-900/20" :
-                      "text-purple-400 border-purple-800"
-                    }`}>{u.role}</span>
+                        "text-purple-400 border-purple-800"
+                      }`}>{u.role}</span>
                     {u.role === "user" && (
                       <button
                         onClick={() => promoteToAstrologer(u)}
@@ -152,11 +151,10 @@ export default function AdminPanel() {
                         {" · "}{Math.floor((s.durationSeconds || 0) / 60)}m
                       </p>
                     </div>
-                    <span className={`text-xs font-display px-2 py-0.5 rounded-full border flex-shrink-0 ${
-                      s.status === "ended" ? "text-green-300 border-green-700 bg-green-900/20" :
+                    <span className={`text-xs font-display px-2 py-0.5 rounded-full border flex-shrink-0 ${s.status === "ended" ? "text-green-300 border-green-700 bg-green-900/20" :
                       s.status === "active" ? "text-gold-300 border-gold-600 bg-gold-900/20 animate-pulse" :
-                      "text-purple-400 border-purple-800"
-                    }`}>{s.status}</span>
+                        "text-purple-400 border-purple-800"
+                      }`}>{s.status}</span>
                   </div>
                 ))
               )}

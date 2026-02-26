@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, onSnapshot, doc, updateDoc } from "f
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
 import { Session, Astrologer, Review } from "@/types";
-import Navbar from "@/components/Navbar";
+import GlassNavBar from "@/components/GlassNavBar";
 import { useRouter } from "next/navigation";
 import { Clock, Star, Video, ToggleLeft, ToggleRight, Edit2, Check, X, Phone, PhoneOff } from "lucide-react";
 import { format } from "date-fns";
@@ -221,7 +221,7 @@ export default function AstrologerDashboard() {
 
   return (
     <div className="min-h-screen relative">
-      <Navbar />
+      <GlassNavBar />
 
       {/* ── Incoming call modal ── */}
       {incomingCall && (
@@ -233,7 +233,7 @@ export default function AstrologerDashboard() {
         />
       )}
 
-      <div className="relative z-content max-w-5xl mx-auto px-4 py-10">
+      <div className="relative z-content max-w-5xl mx-auto px-4 pt-28 pb-10">
         {/* Header */}
         <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
           <div>

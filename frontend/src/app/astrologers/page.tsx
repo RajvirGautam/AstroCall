@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Astrologer } from "@/types";
 import AstrologerCard from "@/components/AstrologerCard";
-import Navbar from "@/components/Navbar";
+import GlassNavBar from "@/components/GlassNavBar";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { Search, SlidersHorizontal, Shield, Star, Users, Clock } from "lucide-react";
@@ -57,14 +57,14 @@ export default function AstrologersPage() {
   const onlineCount = astrologers.filter(a => a.isOnline).length;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#05020e", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", overflowX: "hidden" }}>
 
       {/* Bg nebula */}
       <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, background: "radial-gradient(ellipse 60% 50% at 20% 20%, rgba(60,0,120,0.15) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 80% 70%, rgba(20,0,80,0.12) 0%, transparent 70%)" }} />
 
-      <div style={{ position: "relative", zIndex: 10 }}><Navbar /></div>
+      <div style={{ position: "relative", zIndex: 10 }}><GlassNavBar /></div>
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto", padding: "5rem 2rem 6rem" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto", padding: "8rem 2rem 6rem" }}>
 
         {/* ── HERO HEADER ── */}
         <div style={{ textAlign: "center", marginBottom: "4rem", animation: "fadeUp 0.8s ease both" }}>
