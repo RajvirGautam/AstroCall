@@ -334,7 +334,7 @@ export default function HomePage() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center", marginBottom: "3rem" }}>
 
             {/* Left – copy */}
-            <div style={{ animation: "fadeUp 0.9s ease both", marginTop: "4rem" }}>
+            <div style={{ animation: "fadeUp 0.9s ease both", marginTop: "8rem" }}>
               {/* Floating spaceship SVG removed per user request */}
 
               <h1 style={{ fontFamily: "'Cinzel',serif", fontWeight: 900, lineHeight: 1.05, marginBottom: "1.6rem" }}>
@@ -469,9 +469,9 @@ export default function HomePage() {
       </div>
 
       {/* ── LANDSCAPE FOOTER / CTA ───────────────────────────────── */}
-      <section style={{ position: "relative", zIndex: 2, paddingBottom: 0, background: "rgba(13,4,30,0.4)", overflow: "hidden" }}>
+      <section style={{ position: "relative", zIndex: 2, paddingBottom: 0, background: "rgba(13,4,30,0.4)" }}>
         {/* Landscape SVG — full width */}
-        <div style={{ position: "relative", width: "100%", height: "480px", overflow: "hidden", maxWidth: "100vw" }}>
+        <div style={{ position: "relative", width: "100%", height: "480px", overflowX: "hidden" }}>
 
           {/* Sky gradient behind landscape */}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, #0d041e 0%, #1a0535 35%, #3b0764 70%, #5b0f8a 100%)" }} />
