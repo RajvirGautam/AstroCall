@@ -217,7 +217,7 @@ function ReadingPanel({ sign, onClose }: { sign: ZodiacSign; onClose: () => void
     setLoading(false);
   }, [sign]);
 
-  useEffect(() => { fetchReading(activeType); }, [sign.name, activeType]);
+  useEffect(() => { fetchReading(activeType); }, [sign.name, activeType, fetchReading]);
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, background: "linear-gradient(160deg,rgba(20,8,50,0.97) 0%,rgba(8,2,22,0.99) 100%)", borderLeft: `1px solid ${sign.color}20`, animation: "slideIn 0.35s cubic-bezier(0.16,1,0.3,1) both" }}>

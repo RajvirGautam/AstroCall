@@ -14,15 +14,15 @@ export default function AstrologerCard({ astrologer, onCall, isLoading }: Props)
       {/* Header */}
       <div className="flex items-start gap-4">
         <div className="relative flex-shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={astrologer.photoURL}
             alt={astrologer.name}
             className="w-16 h-16 rounded-full object-cover border-2 border-cosmic-700"
           />
           <span
-            className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-mystic-card status-dot ${
-              astrologer.isOnline ? "status-online" : "status-offline"
-            }`}
+            className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-mystic-card status-dot ${astrologer.isOnline ? "status-online" : "status-offline"
+              }`}
           />
         </div>
         <div className="flex-1 min-w-0">
@@ -42,11 +42,10 @@ export default function AstrologerCard({ astrologer, onCall, isLoading }: Props)
           </div>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <span className={`text-xs font-display tracking-wide px-2 py-0.5 rounded-full border ${
-            astrologer.isOnline
+          <span className={`text-xs font-display tracking-wide px-2 py-0.5 rounded-full border ${astrologer.isOnline
               ? "text-green-300 border-green-700 bg-green-900/20"
               : "text-purple-500 border-purple-800 bg-purple-900/10"
-          }`}>
+            }`}>
             {astrologer.isOnline ? "● Online" : "○ Away"}
           </span>
         </div>
@@ -71,7 +70,7 @@ export default function AstrologerCard({ astrologer, onCall, isLoading }: Props)
         <div className="flex items-center gap-3 text-xs text-purple-400 font-body">
           <span className="flex items-center gap-1">
             <Globe className="w-3.5 h-3.5" />
-            {astrologer.languages.slice(0,2).join(", ")}
+            {astrologer.languages.slice(0, 2).join(", ")}
           </span>
           <span className="flex items-center gap-1">
             <Zap className="w-3.5 h-3.5 text-gold-500" />
@@ -82,11 +81,10 @@ export default function AstrologerCard({ astrologer, onCall, isLoading }: Props)
         <button
           onClick={() => onCall(astrologer)}
           disabled={!astrologer.isOnline || isLoading}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-display text-sm tracking-wide transition-all duration-200 ${
-            astrologer.isOnline
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-display text-sm tracking-wide transition-all duration-200 ${astrologer.isOnline
               ? "bg-gradient-to-r from-cosmic-600 to-cosmic-700 text-white hover:from-cosmic-500 hover:to-cosmic-600 shadow-cosmic animate-ring-pulse"
               : "bg-mystic-card border border-mystic-border text-purple-600 cursor-not-allowed"
-          }`}
+            }`}
         >
           <Phone className="w-3.5 h-3.5" />
           {astrologer.isOnline ? (isLoading ? "Connecting…" : "Call Now") : "Offline"}

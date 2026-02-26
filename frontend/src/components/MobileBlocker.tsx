@@ -1,9 +1,28 @@
 "use client";
 import { Laptop, Tablet } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function MobileBlocker() {
+    const [isStrictMobile, setIsStrictMobile] = useState(false);
+
+    useEffect(() => {
+        // Run on mount to catch "Request Desktop Site" bypassers by checking raw screen physical width
+        const checkScreen = () => {
+            if (window.screen.width < 768) {
+                setIsStrictMobile(true);
+            } else {
+                setIsStrictMobile(false);
+            }
+        };
+        checkScreen();
+        window.addEventListener("resize", checkScreen);
+        return () => window.removeEventListener("resize", checkScreen);
+    }, []);
+
+    // Combine Tailwind's md:hidden (for regular viewport sizing) with our strict JS check
+    // If isStrictMobile is true, force flex regardless of tailwind breakpoints.
     return (
-        <div className="fixed inset-0 z-[99999] flex md:hidden flex-col items-center justify-center bg-[#05020e]/85 backdrop-blur-xl p-8 text-center animate-in fade-in duration-500">
+        <div className={`fixed inset-0 z-[99999] flex-col items-center justify-center bg-[#05020e]/85 backdrop-blur-xl p-8 text-center animate-in fade-in duration-500 ${isStrictMobile ? 'flex' : 'flex md:hidden'}`}>
 
             {/* Decorative floating shapes in background of modal */}
             <div className="absolute w-[300px] h-[300px] rounded-full bg-purple-900/20 blur-[80px] -z-10" />
@@ -33,7 +52,7 @@ export default function MobileBlocker() {
                     Mobile device detected
                 </p>
                 <p className="text-[#4b5563] text-[10px] mt-2 max-w-[240px] mx-auto">
-                    Tip: You can request the "Desktop Site" in your browser settings to proceed anyway.
+                    Note: Desktop mode on small screens is explicitly unsupported to preserve the cosmic experience.
                 </p>
             </div>
         </div>

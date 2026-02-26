@@ -139,7 +139,10 @@ export default function Navbar() {
               >
                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#c084fc] to-[#7c3aed] flex items-center justify-center text-white text-[10px] font-bold shadow-sm overflow-hidden border border-[#a78bfa]/30">
                   {profile?.photoURL ? (
-                    <img src={profile.photoURL} alt="avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={profile.photoURL} alt="avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </>
                   ) : (
                     getInitials()
                   )}
@@ -218,7 +221,10 @@ export default function Navbar() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#6d28d9] to-[#c084fc] flex items-center justify-center text-white font-bold overflow-hidden border border-[#a78bfa]/30">
                   {profile?.photoURL ? (
-                    <img src={profile.photoURL} alt="avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={profile.photoURL} alt="avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </>
                   ) : (
                     getInitials()
                   )}
