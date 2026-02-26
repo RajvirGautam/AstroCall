@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isLoggedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    function isOwner(uid) {
+      return isLoggedIn() && request.auth.uid == uid;
+    }
+
+    // Users collection
+    match /users/{uid} {
+      allow read: if isLoggedIn();
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid) || isAdmin();
+    }
+
+    // Astrologers collection
+    match /astrologers/{uid} {
+      allow read: if true; // Public listing
+      allow write: if isOwner(uid) || isAdmin();
+    }
+
+    // Sessions collection
+    match /sessions/{sessionId} {
+      allow read: if isLoggedIn() && (
+        request.auth.uid == resource.data.userId ||
+        request.auth.uid == resource.data.astroId ||
+        isAdmin()
+      );
+      allow create: if isLoggedIn();
+      allow update: if isLoggedIn() && (
+        request.auth.uid == resource.data.userId ||
+        request.auth.uid == resource.data.astroId ||
+        isAdmin()
+      );
+    }
+
+    // Reviews collection
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isLoggedIn();
+      allow update, delete: if isAdmin();
+    }
+  }
+}

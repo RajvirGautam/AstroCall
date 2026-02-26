@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #07040f;
+  --bg-card: #110b22;
+  --border: #2a1a4e;
+  --accent: #7733ff;
+  --gold: #f59e0b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-primary);
+  color: #e8deff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Star field background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 85% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 55%, rgba(255,255,255,0.5) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Nebula gradient */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(119,51,255,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(59,7,100,0.12) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(119,51,255,0.06) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #2a1a4e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7733ff66; }
+
+/* LiveKit overrides */
+.lk-control-bar {
+  background: rgba(11, 7, 22, 0.9) !important;
+  border-top: 1px solid #2a1a4e !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.lk-button {
+  background: #1a0d33 !important;
+  border: 1px solid #2a1a4e !important;
+  color: #e8deff !important;
+  border-radius: 12px !important;
+  transition: all 0.2s !important;
+}
+
+.lk-button:hover {
+  background: #2a1a4e !important;
+  border-color: #7733ff !important;
+}
+
+.lk-button[aria-pressed="true"] {
+  background: #7733ff33 !important;
+  border-color: #7733ff !important;
+  color: #bb99ff !important;
+}
+
+.lk-video-conference {
+  background: #07040f !important;
+}
+
+.lk-participant-tile {
+  border-radius: 16px !important;
+  border: 1px solid #2a1a4e !important;
+  overflow: hidden !important;
+}
+
+/* Utility classes */
+.glass {
+  background: rgba(17, 11, 34, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid #2a1a4e;
+}
+
+.glass-light {
+  background: rgba(42, 26, 78, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(119, 51, 255, 0.2);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #bb99ff, #7733ff, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gold {
+  background: linear-gradient(135deg, #fbbf24, #fde68a, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px #7733ff44, 0 4px 40px rgba(119,51,255,0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7733ff, #5500dd);
+  color: white;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #9966ff44;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(119,51,255,0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #9966ff, #7733ff);
+  box-shadow: 0 4px 30px rgba(119,51,255,0.5);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #07040f;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #fbbf2444;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  box-shadow: 0 4px 30px rgba(245,158,11,0.5);
+  transform: translateY(-1px);
+}
+
+.card {
+  background: linear-gradient(135deg, #1a0d33 0%, #0d0820 100%);
+  border: 1px solid #2a1a4e;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.input-field {
+  background: rgba(17, 11, 34, 0.8);
+  border: 1px solid #2a1a4e;
+  color: #e8deff;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.input-field:focus {
+  border-color: #7733ff;
+  box-shadow: 0 0 0 3px rgba(119,51,255,0.1);
+}
+
+.input-field::placeholder {
+  color: #4a3a6e;
+}
+
+/* Status dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-online {
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e88;
+  animation: star-twinkle 2s ease-in-out infinite;
+}
+
+.status-offline {
+  background: #6b7280;
+}
+
+/* Rating stars */
+.star-btn {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: #4a3a6e;
+  background: none;
+  border: none;
+  line-height: 1;
+}
+
+.star-btn.active, .star-btn:hover { color: #f59e0b; transform: scale(1.2); }
+
+@layer utilities {
+  .z-content { z-index: 1; }
+}
