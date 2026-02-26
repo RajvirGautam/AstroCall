@@ -182,25 +182,54 @@ export default function CallPage() {
   // PENDING / WAITING STATE
   // ─────────────────────────────────────────────────────────────────────────
   if (session?.status === "pending") return (
-    <div className="min-h-screen flex items-center justify-center bg-mystic-dark px-4">
-      <div className="card p-10 flex flex-col items-center gap-6 max-w-sm w-full text-center">
-        <div className="relative flex items-center justify-center">
-          <div className="absolute w-28 h-28 rounded-full border-2 border-cosmic-500 opacity-25 animate-ping" />
-          <div className="absolute w-20 h-20 rounded-full border border-cosmic-400 opacity-40 animate-ping" style={{ animationDelay: "0.35s" }} />
-          <div className="w-16 h-16 rounded-full bg-cosmic-900/60 border-2 border-cosmic-500 flex items-center justify-center">
-            <PhoneCall className="w-8 h-8 text-cosmic-300 animate-pulse" />
+    <div className="min-h-screen flex items-center justify-center bg-[#06030f] px-4 relative overflow-hidden pointer-events-auto">
+      {/* Background glow for call state */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] rounded-full filter blur-[100px] bg-purple-900/20 pointer-events-none" />
+
+      <div className="relative flex flex-col items-center gap-8 max-w-sm w-full text-center z-10 transition-all duration-500">
+
+        {/* Pulsing Avatar/Radar */}
+        <div className="relative flex items-center justify-center pt-8 mb-4">
+          <div className="absolute w-52 h-52 rounded-full border border-gold-400/20 shadow-[0_0_60px_rgba(245,158,11,0.1)]"
+            style={{ animation: 'radarPing 3s cubic-bezier(0, 0, 0.2, 1) infinite' }} />
+          <div className="absolute w-40 h-40 rounded-full border border-purple-400/30 shadow-[0_0_40px_rgba(139,92,246,0.15)]"
+            style={{ animation: 'radarPing 3s cubic-bezier(0, 0, 0.2, 1) infinite 0.75s' }} />
+          <div className="absolute w-28 h-28 rounded-full border-2 border-purple-400/40"
+            style={{ animation: 'radarPing 3s cubic-bezier(0, 0, 0.2, 1) infinite 1.5s' }} />
+
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-900/90 to-black border-2 border-purple-500/50 flex items-center justify-center z-10 shadow-[0_0_30px_rgba(139,92,246,0.4)]">
+            <div className="text-4xl">🔮</div>
           </div>
         </div>
-        <div>
-          <h2 className="font-display text-2xl text-white mb-1">Calling {session.astroName}…</h2>
-          <p className="font-body text-purple-400 italic text-sm">Waiting for the astrologer to accept</p>
+
+        <div className="space-y-3">
+          <p className="font-display text-[0.65rem] tracking-[0.3em] text-gold-400 uppercase font-bold px-4 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 inline-block animate-pulse">Establishing Connection</p>
+          <h2 className="font-display text-4xl text-white tracking-wide" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+            Calling {session.astroName}
+          </h2>
+          <p className="font-body text-purple-300 italic text-[1.05rem]">Signaling the cosmos… please hold</p>
         </div>
+
         <button onClick={handleCancel} disabled={cancelling}
-          className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-red-700 bg-red-900/20 text-red-400 hover:bg-red-900/40 font-display text-sm tracking-wide transition-all disabled:opacity-50">
-          <PhoneOff className="w-4 h-4" />
-          {cancelling ? "Cancelling…" : "Cancel Call"}
+          className="mt-6 flex flex-col items-center justify-center gap-2 group transition-all duration-300 disabled:opacity-50"
+        >
+          <div className="w-14 h-14 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative border border-red-500/30"
+            style={{ background: "linear-gradient(135deg, rgba(153, 27, 27, 0.5), rgba(69, 10, 10, 0.8))", boxShadow: "0 10px 20px -5px rgba(185,28,28,0.3)" }}>
+            <PhoneOff className="w-6 h-6 text-red-400 group-hover:text-red-300" />
+          </div>
+          <span className="font-display text-[0.7rem] tracking-widest text-red-500/80 group-hover:text-red-400 uppercase mt-2">
+            {cancelling ? "Cancelling" : "End Call"}
+          </span>
         </button>
+
       </div>
+
+      <style jsx>{`
+        @keyframes radarPing {
+          0% { transform: scale(0.5); opacity: 1; }
+          100% { transform: scale(1.3); opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 

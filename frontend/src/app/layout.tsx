@@ -3,6 +3,8 @@ import "@/styles/globals.css";
 import "@livekit/components-styles";
 import { AuthProvider } from "@/hooks/useAuth";
 import StarCanvas from "@/components/StarCanvas";
+import GlobalCallAlert from "@/components/GlobalCallAlert";
+
 
 
 export const metadata: Metadata = {
@@ -15,7 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <StarCanvas />
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {children}
+          <GlobalCallAlert />
+        </AuthProvider>
       </body>
     </html>
   );

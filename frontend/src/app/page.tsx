@@ -411,7 +411,7 @@ export default function HomePage() {
           <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
             <div style={{ fontFamily: "'Cinzel',serif", fontSize: "0.65rem", letterSpacing: "0.4em", color: "#f59e0b", marginBottom: "0.8rem", fontWeight: 600 }}>✦ WHY ASTROCALL ✦</div>
             <h2 style={{ fontFamily: "'Cinzel',serif", fontSize: "2.2rem", fontWeight: 700, color: "#f5f0ff", marginBottom: "0.8rem" }}>Written in the <span style={{ background: "linear-gradient(110deg,#c084fc,#7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Stars</span></h2>
-            <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: "#9ca3af", maxWidth: 500, margin: "0 auto", fontStyle: "italic" }}>India's most trusted platform for live Vedic astrology consultations</p>
+            <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", color: "#9ca3af", maxWidth: 500, margin: "0 auto", fontStyle: "italic" }}>India&apos;s most trusted platform for live Vedic astrology consultations</p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))", gap: "1.5rem" }}>
@@ -447,7 +447,7 @@ export default function HomePage() {
           ].map((t, i) => (
             <div key={i} style={{ background: "linear-gradient(145deg,rgba(20,8,45,0.85) 0%,rgba(8,3,20,0.95) 100%)", border: "1px solid rgba(139,92,246,0.12)", borderRadius: "14px", padding: "1.8rem", backdropFilter: "blur(8px)" }}>
               <div style={{ color: "#f59e0b", fontSize: "1.1rem", marginBottom: "1rem" }}>★★★★★</div>
-              <p style={{ fontFamily: "'Cormorant Garamond',serif", color: "#d1d5db", fontSize: "1.05rem", lineHeight: 1.72, fontStyle: "italic", marginBottom: "1.2rem" }}>"{t.quote}"</p>
+              <p style={{ fontFamily: "'Cormorant Garamond',serif", color: "#d1d5db", fontSize: "1.05rem", lineHeight: 1.72, fontStyle: "italic", marginBottom: "1.2rem" }}>&quot;{t.quote}&quot;</p>
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <div style={{ width: 34, height: 34, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#4c1d95)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", flexShrink: 0, color: "white" }}>{t.sign.charAt(0)}</div>
                 <div>

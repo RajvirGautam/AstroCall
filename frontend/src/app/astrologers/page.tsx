@@ -80,7 +80,7 @@ export default function AstrologersPage() {
             <span style={{ display: "block", fontSize: "clamp(2rem,4vw,3.8rem)", letterSpacing: "-0.01em", background: "linear-gradient(110deg,#c084fc 0%,#7c3aed 50%,#f59e0b 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Cosmic Guide</span>
           </h1>
           <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.15rem", color: "#9ca3af", maxWidth: 500, margin: "0 auto 2rem", fontStyle: "italic", lineHeight: 1.7 }}>
-            Live, face-to-face consultations with India's most trusted Vedic masters
+            Live, face-to-face consultations with India&apos;s most trusted Vedic masters
           </p>
 
           {/* Trust badges */}

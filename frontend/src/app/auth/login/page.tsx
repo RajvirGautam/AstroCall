@@ -217,11 +217,11 @@ const CSS = `
 export default function LoginPage() {
   const { signIn, profile } = useAuth();
   const router = useRouter();
-  const [email, setEmail]       = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPw, setShowPw]     = useState(false);
-  const [error, setError]       = useState("");
-  const [loading, setLoading]   = useState(false);
+  const [showPw, setShowPw] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   /* ── inject CSS client-side to avoid hydration mismatch ── */
@@ -236,7 +236,7 @@ export default function LoginPage() {
   /* ── redirect after profile loads ── */
   useEffect(() => {
     if (profile) {
-      router.push(profile.role === "astrologer" ? "/dashboard" : "/astrologers");
+      router.push(profile.role === "astrologer" ? "/dashboard/astrologer" : "/dashboard/user");
     }
   }, [profile]);
 
@@ -293,16 +293,16 @@ export default function LoginPage() {
         {/* ══ LEFT ══ */}
         <div className="lp-left">
           <svg className="lp-mandala" viewBox="0 0 400 400" fill="none">
-            <circle cx="200" cy="200" r="190" stroke="white" strokeWidth="0.5"/>
-            <circle cx="200" cy="200" r="150" stroke="white" strokeWidth="0.5"/>
-            <circle cx="200" cy="200" r="110" stroke="white" strokeWidth="0.5"/>
-            <circle cx="200" cy="200" r="70"  stroke="white" strokeWidth="0.5"/>
-            {[0,30,60,90,120,150,180,210,240,270,300,330].map(a => {
+            <circle cx="200" cy="200" r="190" stroke="white" strokeWidth="0.5" />
+            <circle cx="200" cy="200" r="150" stroke="white" strokeWidth="0.5" />
+            <circle cx="200" cy="200" r="110" stroke="white" strokeWidth="0.5" />
+            <circle cx="200" cy="200" r="70" stroke="white" strokeWidth="0.5" />
+            {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map(a => {
               const r = (a * Math.PI) / 180;
               return <line key={a}
-                x1={200 + 70  * Math.cos(r)} y1={200 + 70  * Math.sin(r)}
+                x1={200 + 70 * Math.cos(r)} y1={200 + 70 * Math.sin(r)}
                 x2={200 + 190 * Math.cos(r)} y2={200 + 190 * Math.sin(r)}
-                stroke="white" strokeWidth="0.4"/>;
+                stroke="white" strokeWidth="0.4" />;
             })}
           </svg>
 
@@ -310,17 +310,17 @@ export default function LoginPage() {
             <div className="lp-emblem">✦</div>
             <p className="lp-tag">✦ EST. 2024 &nbsp;·&nbsp; VEDIC MASTERS ✦</p>
             <h2 className="lp-h2">
-              Seek Wisdom<br/>from the <em>Cosmos</em>
+              Seek Wisdom<br />from the <em>Cosmos</em>
             </h2>
             <p className="lp-desc">
-              Connect face-to-face with India's most trusted certified Vedic astrologers.
+              Connect face-to-face with India&apos;s most trusted certified Vedic astrologers.
               Real-time consultations, ancient wisdom.
             </p>
-            <div className="lp-div"><span/><em>✦</em><span/></div>
+            <div className="lp-div"><span /><em>✦</em><span /></div>
             <div className="lp-pills">
               {[
-                { i: "🛡️", t: "VERIFIED EXPERTS",     d: "Background-checked & certified Vedic masters" },
-                { i: "🔒", t: "100% CONFIDENTIAL",    d: "All sessions encrypted. Your secrets stay sacred." },
+                { i: "🛡️", t: "VERIFIED EXPERTS", d: "Background-checked & certified Vedic masters" },
+                { i: "🔒", t: "100% CONFIDENTIAL", d: "All sessions encrypted. Your secrets stay sacred." },
                 { i: "⭐", t: "4.9★ RATED PLATFORM", d: "Over 50,000 consultations completed" },
               ].map((p, idx) => (
                 <div className="lp-pill" key={idx}>
@@ -355,7 +355,7 @@ export default function LoginPage() {
                   <div className="lp-fw">
                     <input id="lp-email" type="email" className="lp-input"
                       placeholder="your@email.com" value={email}
-                      onChange={e => setEmail(e.target.value)} required autoComplete="email"/>
+                      onChange={e => setEmail(e.target.value)} required autoComplete="email" />
                   </div>
                 </div>
 
@@ -364,9 +364,9 @@ export default function LoginPage() {
                   <div className="lp-fw">
                     <input id="lp-pw" type={showPw ? "text" : "password"} className="lp-input pr"
                       placeholder="Enter your password" value={password}
-                      onChange={e => setPassword(e.target.value)} required autoComplete="current-password"/>
+                      onChange={e => setPassword(e.target.value)} required autoComplete="current-password" />
                     <button type="button" className="lp-eye" onClick={() => setShowPw(!showPw)}>
-                      {showPw ? <EyeOff size={15}/> : <Eye size={15}/>}
+                      {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                     </button>
                   </div>
                 </div>
@@ -376,14 +376,14 @@ export default function LoginPage() {
                 </button>
               </form>
 
-              <div className="lp-divider"><span/><em>demo accounts</em><span/></div>
+              <div className="lp-divider"><span /><em>demo accounts</em><span /></div>
 
               <div className="lp-demo">
                 <p className="lp-demo-t">✦ QUICK ACCESS — click to autofill</p>
                 {[
-                  { i: "👤", r: "USER",      e: "user@demo.com",  p: "demo1234" },
+                  { i: "👤", r: "USER", e: "user@demo.com", p: "demo1234" },
                   { i: "🔮", r: "ASTROLOGER", e: "astro@demo.com", p: "demo1234" },
-                  { i: "⚙️", r: "ADMIN",     e: "admin@demo.com", p: "demo1234" },
+                  { i: "⚙️", r: "ADMIN", e: "admin@demo.com", p: "demo1234" },
                 ].map((d, idx) => (
                   <div className="lp-demo-row" key={idx}
                     onClick={() => { setEmail(d.e); setPassword(d.p); }}>

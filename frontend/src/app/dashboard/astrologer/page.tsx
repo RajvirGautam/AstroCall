@@ -15,94 +15,6 @@ function formatDuration(s: number) {
   return `${m}m ${sec}s`;
 }
 
-// ── Incoming Call Modal ───────────────────────────────────────────────────────
-function IncomingCallModal({
-  session,
-  onAccept,
-  onDecline,
-  accepting,
-}: {
-  session: Session;
-  onAccept: () => void;
-  onDecline: () => void;
-  accepting: boolean;
-}) {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
-      {/* Modal */}
-      <div
-        className="relative flex flex-col items-center gap-7 p-10 rounded-2xl border border-cosmic-600 shadow-2xl max-w-xs w-full mx-4 text-center"
-        style={{
-          background: "linear-gradient(145deg, rgba(20,8,45,0.98), rgba(8,3,20,0.99))",
-          boxShadow: "0 0 60px rgba(139,92,246,0.25), inset 0 1px 0 rgba(139,92,246,0.15)",
-        }}
-      >
-        {/* Pulsing rings */}
-        <div className="relative flex items-center justify-center">
-          <div
-            className="absolute w-32 h-32 rounded-full border-2 border-cosmic-400 opacity-20"
-            style={{ animation: "callRing 1.8s ease-out infinite" }}
-          />
-          <div
-            className="absolute w-24 h-24 rounded-full border border-cosmic-500 opacity-30"
-            style={{ animation: "callRing 1.8s ease-out infinite 0.4s" }}
-          />
-          <div className="w-16 h-16 rounded-full bg-cosmic-800/60 border-2 border-cosmic-500 flex items-center justify-center">
-            <Phone className="w-8 h-8 text-cosmic-300" style={{ animation: "phoneBounce 0.6s ease infinite alternate" }} />
-          </div>
-        </div>
-
-        <div>
-          <p className="font-display text-xs tracking-[0.3em] text-gold-500 uppercase mb-2">Incoming Call</p>
-          <h2 className="font-display text-2xl text-white">{session.userName}</h2>
-          <p className="font-body text-purple-400 italic text-sm mt-1">is requesting a reading</p>
-        </div>
-
-        <div className="flex gap-4 w-full">
-          {/* Decline */}
-          <button
-            onClick={onDecline}
-            disabled={accepting}
-            className="flex-1 flex flex-col items-center gap-2 py-4 rounded-xl border border-red-700 bg-red-900/20 text-red-400 hover:bg-red-900/40 transition-all disabled:opacity-50"
-          >
-            <div className="w-12 h-12 rounded-full bg-red-900/40 border border-red-700 flex items-center justify-center">
-              <PhoneOff className="w-5 h-5" />
-            </div>
-            <span className="font-display text-xs tracking-wide">Decline</span>
-          </button>
-
-          {/* Accept */}
-          <button
-            onClick={onAccept}
-            disabled={accepting}
-            className="flex-1 flex flex-col items-center gap-2 py-4 rounded-xl border border-green-600 bg-green-900/20 text-green-400 hover:bg-green-900/40 transition-all disabled:opacity-50"
-          >
-            <div className="w-12 h-12 rounded-full bg-green-900/40 border border-green-600 flex items-center justify-center">
-              <Phone className="w-5 h-5" style={{ animation: accepting ? "none" : "phoneBounce 0.6s ease infinite alternate" }} />
-            </div>
-            <span className="font-display text-xs tracking-wide">
-              {accepting ? "Connecting…" : "Accept"}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes callRing {
-          0% { transform: scale(0.9); opacity: 0.4; }
-          100% { transform: scale(1.4); opacity: 0; }
-        }
-        @keyframes phoneBounce {
-          from { transform: rotate(-10deg); }
-          to   { transform: rotate(10deg); }
-        }
-      `}</style>
-    </div>
-  );
-}
 
 // ── Main Dashboard ────────────────────────────────────────────────────────────
 export default function AstrologerDashboard() {
@@ -223,15 +135,7 @@ export default function AstrologerDashboard() {
     <div className="min-h-screen relative">
       <GlassNavBar />
 
-      {/* ── Incoming call modal ── */}
-      {incomingCall && (
-        <IncomingCallModal
-          session={incomingCall}
-          onAccept={handleAccept}
-          onDecline={handleDecline}
-          accepting={accepting}
-        />
-      )}
+
 
       <div className="relative z-content max-w-5xl mx-auto px-4 pt-28 pb-10">
         {/* Header */}
@@ -239,7 +143,7 @@ export default function AstrologerDashboard() {
           <div>
             <div className="font-display text-xs tracking-[0.3em] text-gold-500 uppercase mb-1">Astrologer Portal</div>
             <h1 className="font-display text-4xl text-white">
-              {profile?.displayName?.split(" ")[0]}<span className="text-gradient">'s Studio</span>
+              {profile?.displayName?.split(" ")[0]}<span className="text-gradient">&apos;s Studio</span>
             </h1>
             {/* DEBUG: your UID — make sure Chrome user calls THIS astrologer */}
             <p className="font-mono text-xs text-purple-600 mt-1 select-all" title="Your Firebase UID — Chrome must call this account">
