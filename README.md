@@ -1,253 +1,133 @@
 # 🔮 AstroCall — Live Video Consultations with Astrologers
 
-A full-stack, production-ready platform for real-time video calls with certified astrologers, built with **Next.js 14**, **Firebase**, **LiveKit Cloud**, and **Tailwind CSS**.
+A full-stack, production-ready MVP platform for real-time video and audio consultations with certified astrologers. Built with **Next.js 14**, **Firebase** (Auth & Firestore), **LiveKit Cloud** (WebRTC), and **Tailwind CSS**.
 
 ---
 
-## ✨ Features
+## ✨ Advanced MVP Features
 
-| Feature | Details |
-|--------|---------|
-| 🔐 Auth & Roles | Firebase Auth with `user` / `astrologer` / `admin` roles |
-| 🔮 Astrologer Directory | Live online status, ratings, languages, specialties |
-| 📹 HD Video Calls | LiveKit Cloud — mic/camera toggle, reconnect, end-call |
-| ⏱️ Call Timer | Real-time session duration display |
-| ⭐ Rating Modal | Post-call review with 1–5 stars + comment |
-| 👤 User Dashboard | Past calls, reviews given, stats |
-| 🌟 Astrologer Dashboard | Online/offline toggle, bio editor, earnings view |
-| ⚙️ Admin Panel | Promote users to astrologers, full session log |
-| 🔥 Firestore | Real-time data sync across all clients |
-| ☁️ Cloud Functions | Secure JWT token generation for LiveKit rooms |
+The current iteration of AstroCall has advanced significantly from its initial foundation, now featuring a robust suite of tools for both users and astrologers:
 
----
+### 🔐 Authentication & Roles
+*   **Role-Based Access Control:** Secure Firebase Auth distinguishing between `user`, `astrologer`, and `admin` roles, directing users to isolated dashboard environments.
+*   **Session Management:** Persistent login states with secure token validation across route protections.
 
-## 🗂️ Project Structure
+### 🎥 Real-Time Communication
+*   **HD Video/Audio Calls:** Powered by LiveKit Cloud for low-latency, high-quality WebRTC streaming.
+*   **Global Call Notifications:** An advanced `GlobalCallAlert` system that listens to Firestore changes to notify users of incoming calls across *any* route/page in the app.
+*   **In-Call Controls:** Toggle microphone/camera, real-time connection status, and precise session duration timers.
 
-```
-astro-call/
-├── src/
-│   ├── app/
-│   │   ├── page.tsx                  # Landing page
-│   │   ├── astrologers/page.tsx      # Astrologer listing
-│   │   ├── call/[sessionId]/page.tsx # Video call room
-│   │   ├── dashboard/
-│   │   │   ├── user/page.tsx         # User dashboard
-│   │   │   └── astrologer/page.tsx   # Astrologer dashboard
-│   │   ├── admin/page.tsx            # Admin panel
-│   │   ├── auth/
-│   │   │   ├── login/page.tsx
-│   │   │   └── register/page.tsx
-│   │   └── api/token/route.ts        # NextJS API → LiveKit token
-│   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── AstrologerCard.tsx
-│   │   └── RatingModal.tsx
-│   ├── hooks/
-│   │   ├── useAuth.tsx               # AuthContext + Firebase Auth
-│   │   └── useCallTimer.ts           # Live call duration timer
-│   ├── lib/
-│   │   ├── firebase.ts               # Firebase initialization
-│   │   └── sessions.ts               # Firestore session helpers
-│   ├── types/index.ts
-│   └── styles/globals.css
-├── functions/
-│   └── src/index.ts                  # Firebase Cloud Functions
-├── firestore.rules
-├── firestore.indexes.json
-├── firebase.json
-└── .env.local.example
-```
+### 💼 Dashboards & Management
+*   **Astrologer Dashboard:** Toggle online/offline status, edit profile bio, track earnings, and view a history of completed sessions and reviews.
+*   **User Dashboard:** View past calls, submit post-call ratings, review past interactions, and monitor active sessions.
+*   **Admin Panel:** Promote standard users to verified astrologers and view system-wide logs.
+
+### 🌟 Discovery & Engagement
+*   **Astrologer Directory:** Live online status indicators, dynamically calculated ratings, specialties, and language filters.
+*   **Post-Call Rating System:** Integrated 1–5 star reviews with comments, dynamically updating the astrologer's aggregate rating.
+*   **Dynamic UI Elements:** Beautiful, responsive glass-morphism designs including a `GlassNavBar` and an interactive `StarCanvas` background.
 
 ---
 
-## 🚀 Setup Guide
+## 🏗️ Architecture
 
-### 1. Clone & Install
+AstroCall uses a modern serverless architecture optimized for real-time data flow and low maintenance overhead:
 
-```bash
-git clone https://github.com/your-username/astro-call
-cd astro-call
-npm install
+*   **Frontend (Next.js 14 App Router):** Provides Server-Side Rendering (SSR) for robust SEO on public pages (like the Astrologer Directory) and static generation where applicable.
+*   **Backend / API:** Next.js API Routes handle secure server-side logic, specifically communicating with the LiveKit Server SDK to mint JWTs for secure video room access. Firebase Cloud Functions (`functions/src/index.ts`) operate as event-driven background workers (e.g., aggregating session data when a call ends).
+*   **Database (Firebase Firestore):** A NoSQL strictly-typed schema ensures instant synchronization of call status, rating updates, and user states across all connected clients via websocket listeners.
+*   **WebRTC Infrastructure (LiveKit):** Bypasses the complexity of maintaining custom TURN/STUN servers. Next.js APIs generate tokens, while the React frontend connects directly to LiveKit's global edge network.
 
-cd functions
-npm install
-cd ..
-```
+---
 
-### 2. Firebase Project
+## 🤔 Technical Decisions
 
-1. Go to [Firebase Console](https://console.firebase.google.com)
-2. Create a new project → Enable **Authentication** (Email/Password)
-3. Create **Firestore** database (production mode)
-4. Enable **Firebase Hosting** + **Cloud Functions**
-5. Get your Web App config from Project Settings
+1.  **Firebase Firestore over SQL:** Selected for its out-of-the-box real-time document listeners. Features like the `GlobalCallAlert` and live online status indicators are trivial to implement securely using Firestore snapshot listeners compared to building a custom WebSocket server.
+2.  **LiveKit over Raw WebRTC:** Writing raw WebRTC is error-prone, especially handling network reconnections, mobile network hopping, and browser inconsistencies. LiveKit provides a stable, declarative React SDK (`@livekit/components-react`) that abstracts this complexity.
+3.  **Next.js App Router:** Chose Next.js for its built-in API routes. Minting LiveKit tokens requires a backend to securely hold the `LK_API_SECRET`. By using Next.js, we eliminate the need for a separate Node/Express backend infrastructure for the MVP.
+4.  **Tailwind CSS + Custom UI Components:** Eliminated heavy component libraries in favor of raw Tailwind combined with custom-built React components (like `GlassNavBar` and `RatingModal`) to maintain strict control over the cosmic "glassmorphism" aesthetic.
 
-### 3. LiveKit Cloud
+---
 
-1. Sign up at [livekit.io](https://livekit.io)
-2. Create a new project
-3. Note your **API Key**, **API Secret**, and **WebSocket URL**
+## 🤖 AI Usage Notes
 
-### 4. Environment Variables
+In alignment with the PRD, AI tools were utilized minimally and strategically to accelerate development without compromising architectural integrity:
 
-```bash
-cp .env.local.example .env.local
-```
+*   **UI & Boilerplate Generation:** Generative AI was primarily used to quickly scaffold React components, Tailwind utility classes, and boilerplate layouts (e.g., generating the complex CSS required for the `StarCanvas` animation and the initial `GlassNavBar` responsive states).
+*   **Minimal Logic Interference:** Core business logic—such as the Next.js API token generation, Firebase security rules (`firestore.rules`), and the complex state management of the `GlobalCallAlert`—were authored and orchestrated manually to ensure security and exact adherence to the product requirements.
+*   **Debugging & Refactoring:** AI served as a pair-programming assistant to resolve specific React dependency array warnings, type-check TS interfaces, and format the comprehensive Firebase schema structure.
 
-Fill in `.env.local`:
+---
+
+## 🚀 Setup & Local Development
+
+### 1. Requirements
+*   Node.js 20+
+*   Firebase Project (Auth, Firestore, Functions, Hosting)
+*   LiveKit Cloud Project
+
+### 2. Environment Variables (`.env.local`)
+Create `.env.local` inside the `frontend/` directory.
+
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=...
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
 NEXT_PUBLIC_FIREBASE_APP_ID=...
 
-# LiveKit (for Next.js API route)
 LK_API_KEY=your_livekit_api_key
 LK_API_SECRET=your_livekit_api_secret
 LK_WS_URL=wss://your-project.livekit.cloud
 ```
 
-### 5. Deploy Firebase Rules & Indexes
+### 3. Installation & Execution
 
 ```bash
-firebase login
-firebase use --add   # Select your project
-firebase deploy --only firestore:rules,firestore:indexes
-```
+# Clone the repository
+git clone <repo_url>
+cd astro-call
 
-### 6. Deploy Cloud Functions
+# Install frontend dependencies
+cd frontend
+npm install
 
-```bash
-# Set LiveKit secrets in Firebase config
-firebase functions:config:set \
-  livekit.api_key="YOUR_LK_API_KEY" \
-  livekit.api_secret="YOUR_LK_API_SECRET" \
-  livekit.ws_url="wss://your-project.livekit.cloud"
-
-cd functions
-npm run build
-cd ..
-firebase deploy --only functions
-```
-
-### 7. Seed Demo Astrologers
-
-After deploying functions, call the seed endpoint once:
-```
-https://your-region-your-project.cloudfunctions.net/seedDemoData?secret=astrocall-seed-2024
-```
-
-### 8. Create Test Accounts
-
-Register these accounts at `/auth/register`:
-
-| Email | Password | Role |
-|-------|----------|------|
-| user@demo.com | demo1234 | User |
-| astro@demo.com | demo1234 | Astrologer |
-| admin@demo.com | demo1234 | User → promote to Admin |
-
-To promote admin, manually update in Firebase Console:
-`users/{uid}` → set `role: "admin"`
-
-### 9. Run Locally
-
-```bash
+# Start development server
 npm run dev
-# → http://localhost:3000
+# → http://localhost:3050
 ```
 
-### 10. Deploy to Firebase Hosting
-
-```bash
-npm run build
-firebase deploy --only hosting
-```
+*Note: Cloud functions run separately. Ensure Firebase CLI is installed and configured if deploying backend logic.*
 
 ---
 
-## 📁 Firestore Schema
+## 📁 Core Firestore Schema
 
-```
+```typescript
 users/{uid}
   ├── uid: string
   ├── email: string
   ├── displayName: string
   ├── role: "user" | "astrologer" | "admin"
-  ├── photoURL?: string
   └── createdAt: number
 
-astrologers/{uid}
-  ├── uid: string
+astrologers/{uid}     // Additional data linked to users
   ├── name: string
   ├── bio: string
-  ├── photoURL: string
-  ├── languages: string[]
   ├── specialties: string[]
   ├── isOnline: boolean
   ├── rating: number
-  ├── totalReviews: number
-  ├── totalCalls: number
-  └── ratePerMinute: number
+  └── totalCalls: number
 
 sessions/{id}
   ├── userId: string
-  ├── userName: string
   ├── astroId: string
-  ├── astroName: string
   ├── status: "pending" | "active" | "ended"
   ├── roomName: string
   ├── startedAt: number | null
-  ├── endedAt: number | null
-  ├── durationSeconds: number
-  └── createdAt: number
-
-reviews/{id}
-  ├── sessionId: string
-  ├── userId: string
-  ├── astroId: string
-  ├── userName: string
-  ├── rating: number (1–5)
-  ├── comment: string
-  └── createdAt: number
+  └── durationSeconds: number
 ```
 
 ---
-
-## 🔧 Cloud Functions
-
-### `createRoomToken` (Callable)
-- **Auth required**: Yes
-- **Input**: `{ sessionId, identity }`
-- **Output**: `{ token, wsUrl }`
-- Verifies participant is part of session before issuing JWT
-
-### `onSessionEnded` (Firestore Trigger)
-- Fires when `sessions/{id}.status` → `"ended"`
-- Increments `astrologers/{astroId}.totalCalls`
-
-### `seedDemoData` (HTTP)
-- Seeds 4 demo astrologers into Firestore
-- Protected by query secret
-
----
-
-## 🎨 Design System
-
-- **Font Display**: Cinzel (serif, elegant)
-- **Font Body**: Cormorant Garamond (italic serif)
-- **Font Mono**: DM Mono
-- **Theme**: Deep cosmic purple + gold accents
-- **Animations**: Float, pulse-glow, star-twinkle, slide-up
-
----
-
-## 📝 License
-
-MIT — feel free to build your own constellation.
-
----
-
 *Built with ✨ cosmic intention*
