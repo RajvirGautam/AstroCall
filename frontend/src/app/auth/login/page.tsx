@@ -382,7 +382,7 @@ export default function LoginPage() {
                 <p className="lp-demo-t">✦ QUICK ACCESS — click to autofill</p>
                 {[
                   { i: "👤", r: "USER", e: "user@demo.com", p: "demo1234" },
-                  { i: "🔮", r: "ASTROLOGER", e: "astro@demo.com", p: "demo1234" },
+                  { i: "🔮", r: "ASTROLOGER", e: "sosho@gmail.com", p: "12345678" },
                   { i: "⚙️", r: "ADMIN", e: "admin@demo.com", p: "demo1234" },
                 ].map((d, idx) => (
                   <div className="lp-demo-row" key={idx}
