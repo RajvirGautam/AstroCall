@@ -4,32 +4,32 @@ A full-stack, production-ready MVP platform for real-time video and audio consul
 
 ---
 
-## ✨ Advanced MVP Features
+## Features
 
 The current iteration of AstroCall has advanced significantly from its initial foundation, now featuring a robust suite of tools for both users and astrologers:
 
-### 🔐 Authentication & Roles
+### Authentication & Roles
 *   **Role-Based Access Control:** Secure Firebase Auth distinguishing between `user`, `astrologer`, and `admin` roles, directing users to isolated dashboard environments.
 *   **Session Management:** Persistent login states with secure token validation across route protections.
 
-### 🎥 Real-Time Communication
+### Real-Time Communication
 *   **HD Video/Audio Calls:** Powered by LiveKit Cloud for low-latency, high-quality WebRTC streaming.
 *   **Global Call Notifications:** An advanced `GlobalCallAlert` system that listens to Firestore changes to notify users of incoming calls across *any* route/page in the app.
 *   **In-Call Controls:** Toggle microphone/camera, real-time connection status, and precise session duration timers.
 
-### 💼 Dashboards & Management
+### Dashboards & Management
 *   **Astrologer Dashboard:** Toggle online/offline status, edit profile bio, track earnings, and view a history of completed sessions and reviews.
 *   **User Dashboard:** View past calls, submit post-call ratings, review past interactions, and monitor active sessions.
 *   **Admin Panel:** Promote standard users to verified astrologers and view system-wide logs.
 
-### 🌟 Discovery & Engagement
+### Discovery & Engagement
 *   **Astrologer Directory:** Live online status indicators, dynamically calculated ratings, specialties, and language filters.
 *   **Post-Call Rating System:** Integrated 1–5 star reviews with comments, dynamically updating the astrologer's aggregate rating.
 *   **Dynamic UI Elements:** Beautiful, responsive glass-morphism designs including a `GlassNavBar` and an interactive `StarCanvas` background.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 AstroCall uses a modern serverless architecture optimized for real-time data flow and low maintenance overhead:
 
@@ -40,7 +40,7 @@ AstroCall uses a modern serverless architecture optimized for real-time data flo
 
 ---
 
-## 🤔 Technical Decisions
+## Technical Decisions
 
 1.  **Firebase Firestore over SQL:** Selected for its out-of-the-box real-time document listeners. Features like the `GlobalCallAlert` and live online status indicators are trivial to implement securely using Firestore snapshot listeners compared to building a custom WebSocket server.
 2.  **LiveKit over Raw WebRTC:** Writing raw WebRTC is error-prone, especially handling network reconnections, mobile network hopping, and browser inconsistencies. LiveKit provides a stable, declarative React SDK (`@livekit/components-react`) that abstracts this complexity.
@@ -49,7 +49,7 @@ AstroCall uses a modern serverless architecture optimized for real-time data flo
 
 ---
 
-## 🤖 AI Usage Notes
+## AI Usage Notes
 
 In alignment with the PRD, AI tools were utilized minimally and strategically to accelerate development without compromising architectural integrity:
 
